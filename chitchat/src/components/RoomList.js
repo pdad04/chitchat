@@ -44,8 +44,8 @@ class RoomList extends Component {
                     </Button>
                 </Modal>
                 <section>
-                    {this.state.rooms.map((room,index) => 
-                        <li key={index}>{room.name}</li>
+                    {this.state.rooms.map((room,index) =>
+                        <a href='' key={index}><li key={index} id={room.key} onClick={this.props.room(room)}>{room.name}</li></a>
                     )}
                 </section>
             </section>
