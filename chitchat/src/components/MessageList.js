@@ -9,6 +9,7 @@ class MessageList extends Component {
         }
         this.roomsRef = this.props.firebase.database().ref('rooms');
         this.messagesRef = this.props.firebase.database().ref('messages');
+        this.createMessage = this.createMessage.bind(this);
     }
 
 
@@ -20,11 +21,6 @@ class MessageList extends Component {
                 this.setState({ messages: this.state.messages.concat(snapshot.val())});
             }
         });
-    //    this.messagesRef.orderByChild("roomId").equalTo(this.props.roomId).on("child_added", snapshot =>{
-    //         const messages = snapshot.val();
-    //         console.log(snapshot.val);
-    //         this.setState({messages: this.state.messages.concat(messages)});
-    //    })
 
     }
 
@@ -47,12 +43,34 @@ class MessageList extends Component {
         } 
     }
 
+    createMessage(e){
+        e.preventDefault();
+        const message = document.getElementById('message');
+        if(this.props.user){
+            this.messagesRef.push({
+                content: message.value,
+                username: this.props.user.displayName,
+                roomId: this.props.roomId,
+                sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
+            });
+            message.value = '';
+        }
+    }
+
     render(){
         return(
             <section>
-                {this.state.messages.map((room,index) => 
-                    <li key={index}>{room.content}</li>
-                )}
+                <div id="message-list">
+                    {this.state.messages.map((room,index) => 
+                        <li key={index}>{room.content}</li>
+                    )}
+                </div>
+                <div id="message-input">
+                    <form onSubmit={this.createMessage}>
+                        <input id='message' type='text' name='message'  />
+                        <input type="submit" />
+                    </form>
+                </div>
             </section>
         );
     }
