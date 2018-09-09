@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './User.css'
 
 class User extends Component{
     
@@ -6,6 +7,9 @@ class User extends Component{
         super(props);   
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.state = {
+            signedIn: false
+        }
     }
 
     componentDidMount(){
@@ -18,18 +22,19 @@ class User extends Component{
         e.preventDefault();
         const provider = new this.props.firebase.auth.GoogleAuthProvider();
         this.props.firebase.auth().signInWithPopup(provider);
+        this.setState({signedIn: true})
     }
 
     signOut(e){
         e.preventDefault();
         this.props.firebase.auth().signOut();
+        this.setState({signedIn: false})
     }
     render(){
         return(
-            <section>
+            <section id='user-data'>
                 <h5>{this.props.user ? this.props.user.displayName : 'Guest'}</h5>
-                <a href='' onClick={this.signIn}>Sign In</a>
-                <a href='' onClick={this.signOut}>Sign Out</a>
+                <a href='' onClick={this.state.signedIn ? this.signOut: this.signIn}>{this.state.signedIn ? 'Sign Out' : 'Sign In'}</a>
             </section>
         )
     }

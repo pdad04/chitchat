@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Input } from 'react-materialize'
+import './RoomList.css'
 
 class RoomList extends Component {
     constructor(props){
@@ -29,21 +30,23 @@ class RoomList extends Component {
     render(){
         return(
             <section>
-                <Modal  
-                    header='Create new room'
-                    open={false}
-                    trigger={<Button className='blue' waves='light'>Create Room</Button>}
-                >
-                    <Input id='createRoom'label='Room' />
-                    <Button 
-                        waves='light'
-                        onClick={() => this.createRoom()}
-                        className='blue'
+                <div id='modal-button'>
+                    <Modal  
+                        header='Create new room'
+                        open={false}
+                        trigger={<Button className='blue' waves='light'>Create Room</Button>}
                     >
-                        Submit
-                    </Button>
-                </Modal>
-                <section>
+                        <Input id='createRoom'label='Room' />
+                        <Button 
+                            waves='light'
+                            onClick={() => this.createRoom()}
+                            className='blue'
+                        >
+                            Submit
+                        </Button>
+                    </Modal>
+                </div>
+                <section id='room-list'>
                     {this.state.rooms.map((room,index) =>
                         <a href='' key={index}><li key={index} id={room.key} onClick={this.props.room(room)}>{room.name}</li></a>
                     )}

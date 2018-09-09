@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Moment from 'react-moment'
+import './Message.css'
 
 class MessageList extends Component {
     constructor(props){
@@ -9,7 +11,7 @@ class MessageList extends Component {
         }
         this.roomsRef = this.props.firebase.database().ref('rooms');
         this.messagesRef = this.props.firebase.database().ref('messages');
-        this.createMessage = this.createMessage.bind(this);
+        this.createMessage = this.createMessage.bind(this); 
     }
 
 
@@ -34,6 +36,12 @@ class MessageList extends Component {
             }
         });
         }
+
+        const messages = document.getElementsByClassName('message-data');
+        if(messages.length !== 0){
+            const last = messages[messages.length - 1];
+            last.scrollIntoView();
+        }
     }
 
 
@@ -45,7 +53,7 @@ class MessageList extends Component {
 
     createMessage(e){
         e.preventDefault();
-        const message = document.getElementById('message');
+        const message = document.getElementById('message-text');
         if(this.props.user){
             this.messagesRef.push({
                 content: message.value,
@@ -59,15 +67,20 @@ class MessageList extends Component {
 
     render(){
         return(
-            <section>
+            <section id='message-view'>
                 <div id="message-list">
                     {this.state.messages.map((room,index) => 
-                        <li key={index}>{room.content}</li>
+                        <div className='message-data' key={index}>
+                            <div id='message-content'>
+                                <p className='message-user'>{room.username} <span id='timestamp'><Moment format='dddd MMM DD, YYYY @ h:mm a'>{room.sentAt}</Moment></span></p>
+                                <p>{room.content}</p>
+                            </div>
+                        </div>
                     )}
                 </div>
                 <div id="message-input">
                     <form onSubmit={this.createMessage}>
-                        <input id='message' type='text' name='message'  />
+                        <input id='message-text' type='text' name='message' placeholder='Message' autoComplete='off' />
                         <input type="submit" />
                     </form>
                 </div>

@@ -1,0 +1,16 @@
+#room-list{
+    margin-top: 10px;
+}
+#room-list li{
+    list-style: none;
+    color: darkgray;
+    padding: 5px 15px 5px 15px;
+}
+
+#room-list li:hover{
+   background-color:rgb(177,182,188,0.2);
+}
+
+#modal-button{
+    text-align: center;
+}

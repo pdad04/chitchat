@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      activeRoomName: 'Room1',
+      activeRoomName: 'Main Room',
       activeRoomId: '1',
       user: null
     }
@@ -40,23 +40,32 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>{this.state.activeRoomName}</h1>
-        <User 
-          firebase={firebase}
-          setUser={(user) => this.setUser(user)}
-          user={this.state.user} 
-        />
-        <RoomList  
-          firebase={firebase}  
-          room={(e) => this.getActiveRoom}
+      <section className='wrapper'>
+        <aside id='navigation'>
+          <header id='user-header'>
+            <h3 id='app-name'>Chit Chat</h3>
+            <User 
+              firebase={firebase}
+              setUser={(user) => this.setUser(user)}
+              user={this.state.user} 
+            />
+          </header>
+          <RoomList  
+            firebase={firebase}  
+            room={(e) => this.getActiveRoom}
+            />
+        </aside>
+        <section id='content'>
+          <div id='meassage-header'>
+            <h5>{this.state.activeRoomName}</h5>
+          </div>
+          <MessageList 
+            firebase={firebase} 
+            roomId={this.state.activeRoomId} 
+            user={this.state.user}
           />
-        <MessageList 
-          firebase={firebase} 
-          roomId={this.state.activeRoomId} 
-          user={this.state.user}
-        />
-      </div>
+        </section>
+      </section>
     );
   }
 }

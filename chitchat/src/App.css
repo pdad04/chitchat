@@ -1,28 +1,43 @@
-.App {
+.wrapper{
+  display: flex;
+  flex-direction: row;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+h4{
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+#content{
+  width: 80%;
+  height:100vh;
+}
+
+#navigation{
+  width:20%;
+  height: 100vh;  
+  background-color: #303e4c;
+  color: darkgray;
+}
+
+#app-name{
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+#meassage-header{
+  padding-left: 10px;
+  border-bottom: 1px solid #303e4c;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+#createRoom{
+  border-bottom: 1px solid #303e4c;
+  box-shadow: none;
 }
 
-.App-title {
-  font-size: 1.5em;
+#createRoom:focus{
+  box-shadow: 0 1px 0 0 #303e4c;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.active{
+  color: #1f9aee !important;
 }
